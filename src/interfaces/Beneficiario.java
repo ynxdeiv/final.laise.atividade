@@ -1,5 +1,6 @@
 package interfaces;
 
-public class Beneficiario {
-    
+public interface Beneficiario {
+    void adicionarBeneficio(String beneficio);
+    String[] listarBeneficios();
 }

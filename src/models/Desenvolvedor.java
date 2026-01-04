@@ -1,17 +1,24 @@
 package models;
 
-import java.time.LocalDate;
+import interfaces.Beneficiario;
+import interfaces.Promovivel;
 
-public class Desenvolvedor extends Funcionario{
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Desenvolvedor extends Funcionario implements Beneficiario, Promovivel {
     private String [] linguagens;
     private String nivel;
     private double bonusPorProjeto;
+    private List<String> beneficios; 
 
     public Desenvolvedor(String nome, String cpf, LocalDate dataAdmissao, double salarioBase, String nivel, String[] linguagens){
         super(nome, cpf, salarioBase, dataAdmissao);
         this.nivel = nivel;
         this.linguagens = linguagens;
         this.bonusPorProjeto = 0;
+        this.beneficios = new ArrayList<>(); 
     }
 
     @Override
@@ -22,7 +29,7 @@ public class Desenvolvedor extends Funcionario{
             case "SENIOR" -> 2.0;
             default -> 1.0;
         };
-        return this.getSalarioBase() *multiplicador *bonusPorProjeto;
+        return this.getSalarioBase() *multiplicador +bonusPorProjeto;
     }
     
     @Override
@@ -33,7 +40,7 @@ public class Desenvolvedor extends Funcionario{
     public void adicionarBonus(double bonus){
         this.bonusPorProjeto+=bonus;
     }
-
+    @Override
     public void promover() {
         if (nivel.equalsIgnoreCase("JUNIOR")) {
             nivel = "PLENO";
@@ -49,4 +56,13 @@ public class Desenvolvedor extends Funcionario{
     public String[] getLinguagens(){
         return linguagens;
     }
+    @Override
+    public void adicionarBeneficio(String beneficio){
+        beneficios.add(beneficio);
+    }
+    @Override
+    public String[] listarBeneficios() {
+        return beneficios.toArray(new String[0]);
+    }
+    
 }
