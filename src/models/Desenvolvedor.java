@@ -2,7 +2,6 @@ package models;
 
 import interfaces.Beneficiario;
 import interfaces.Promovivel;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +57,9 @@ public class Desenvolvedor extends Funcionario implements Beneficiario, Promoviv
     }
     @Override
     public void adicionarBeneficio(String beneficio){
+        if (beneficio == null || beneficio.isBlank()) {
+            throw new exceptions.BeneficioInvalidoException("Benefício não pode ser vazio ou nulo.");
+        }
         beneficios.add(beneficio);
     }
     @Override
